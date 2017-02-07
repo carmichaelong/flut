@@ -19,7 +19,7 @@ namespace flut
 	/// make a prop_node with a value
 	template< typename T > prop_node make_prop_node( const T& value );
 
-    /// forward declare prop_node_cast
+	/// forward declare prop_node_cast
 	template< typename T, typename E = void > struct prop_node_cast;
 
 	/// prop_node class
@@ -179,7 +179,7 @@ namespace flut
 		container_t children;
 	};
 
-    /// prop_node_cast and specializations
+	/// prop_node_cast and specializations
 	template<> struct prop_node_cast< prop_node > {
 		static prop_node from( const prop_node& pn ) { return pn; }
 		static prop_node to( const prop_node& value ) { return value; }

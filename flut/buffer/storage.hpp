@@ -98,7 +98,7 @@ namespace flut
 	private:
 		size_t frame_size_;
 		std::vector< L > labels_;
-        std::vector< T > data_;
+		std::vector< T > data_;
 	};
 
 	template< typename T, typename L > std::ostream& operator<<( std::ostream& str, const storage< T, L >& buf )

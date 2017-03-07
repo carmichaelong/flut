@@ -10,9 +10,10 @@
 #include <fstream>
 #include "system/log.hpp"
 #include <chrono>
-#include <corecrt_io.h>
-#include <direct.h>
 #include <thread>
+#include <pthread.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 namespace flut
 {
@@ -84,10 +85,10 @@ namespace flut
 #else
 		if ( !folder.empty() )
 		{
-			if ( access( folder.c_str(), 0 ) == 0 )
+            struct stat status;
+
+			if ( stat( folder.c_str(), &status ) == 0 )
 			{
-				struct stat status;
-				stat( folder.c_str(), &status );
 				if ( status.st_mode & S_IFDIR )
 					return true;
 			}
@@ -101,7 +102,7 @@ namespace flut
 #ifdef FLUT_COMP_MSVC
 		return CreateDirectory( folder.c_str(), NULL ) != 0;
 #else
-		return mkdir( folder.c_str() ) == 0;
+		return mkdir( folder.c_str(), 0777 ) == 0;
 #endif
 	}
 
@@ -144,7 +145,7 @@ namespace flut
 #elif __APPLE__
 		// TODO setschedprio unavailable; maybe use getschedparam?
 #else
-		pthread_setschedparam( pthread_self(), SCHED_RR, (int)p + 2 );
+        pthread_setschedprio( pthread_self(), (int)p );
 #endif
 	}
 }

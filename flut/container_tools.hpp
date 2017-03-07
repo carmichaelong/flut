@@ -1,6 +1,7 @@
 #pragma once
 
 #include "flut/system/types.hpp"
+#include <iterator>
 
 namespace flut
 {
